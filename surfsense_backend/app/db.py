@@ -372,6 +372,9 @@ class NewChatMessage(BaseModel, TimestampMixin):
     # Content stored as JSONB to support rich content (text, tool calls, etc.)
     content = Column(JSONB, nullable=False)
 
+    # Message metadata stored as JSONB for flexibility (edited_at, edited_by, client_info, etc.)
+    message_metadata = Column(JSONB, nullable=True)
+
     # Foreign key to thread
     thread_id = Column(
         Integer,
@@ -380,8 +383,17 @@ class NewChatMessage(BaseModel, TimestampMixin):
         index=True,
     )
 
-    # Relationship
+    # Foreign key to user (nullable for assistant/system messages)
+    user_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("user.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
+    # Relationships
     thread = relationship("NewChatThread", back_populates="messages")
+    user = relationship("User")
 
 
 class Document(BaseModel, TimestampMixin):

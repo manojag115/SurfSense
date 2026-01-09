@@ -137,6 +137,7 @@ function extractPersistedAttachments(content: unknown): PersistedAttachment[] {
  * Convert backend message to assistant-ui ThreadMessageLike format
  * Filters out 'thinking-steps' part as it's handled separately via messageThinkingSteps
  * Restores attachments for user messages from persisted data
+ * Includes user info in metadata for display
  */
 function convertToThreadMessage(msg: MessageRecord): ThreadMessageLike {
 	let content: ThreadMessageLike["content"];
@@ -182,12 +183,26 @@ function convertToThreadMessage(msg: MessageRecord): ThreadMessageLike {
 		}
 	}
 
+	// Include user info in metadata for user messages
+	const metadata: Record<string, unknown> = {};
+	if (msg.user) {
+		metadata.user = {
+			id: msg.user.id,
+			email: msg.user.email,
+			name: msg.user.name || msg.user.email.split("@")[0],
+			avatar_url:
+				msg.user.avatar_url ||
+				`https://ui-avatars.com/api/?name=${encodeURIComponent(msg.user.name || msg.user.email.split("@")[0])}&background=random`,
+		};
+	}
+
 	return {
 		id: `msg-${msg.id}`,
 		role: msg.role,
 		content,
 		createdAt: new Date(msg.created_at),
 		attachments,
+		metadata,
 	};
 }
 

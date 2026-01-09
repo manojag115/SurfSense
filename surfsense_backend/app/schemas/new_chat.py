@@ -8,6 +8,7 @@ These schemas follow the assistant-ui ThreadHistoryAdapter pattern:
 
 from datetime import datetime
 from typing import Any
+from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -18,6 +19,37 @@ from .base import IDModel, TimestampModel
 # =============================================================================
 # Message Schemas
 # =============================================================================
+
+
+class MessageUserInfo(BaseModel):
+    """User information for chat messages."""
+
+    id: UUID
+    email: str
+    is_active: bool = True
+    is_superuser: bool = False
+    is_verified: bool = False
+    name: str | None = None
+    avatar_url: str | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+    def model_post_init(self, __context) -> None:
+        """Populate computed fields after model initialization."""
+        if self.name is None:
+            self.name = self.email.split("@")[0] if self.email else "User"
+        if self.avatar_url is None:
+            from urllib.parse import quote
+            if self.email:
+                self.avatar_url = f"https://ui-avatars.com/api/?name={quote(self.email.split('@')[0])}&background=random"
+
+
+class MessageMetadata(BaseModel):
+    """Metadata for chat messages."""
+
+    edited_at: datetime | None = None
+    edited_by: UUID | None = None
+    client_info: dict[str, Any] | None = None
 
 
 class NewChatMessageBase(BaseModel):
@@ -31,12 +63,17 @@ class NewChatMessageCreate(NewChatMessageBase):
     """Schema for creating a new message."""
 
     thread_id: int
+    user_id: UUID | None = None
+    metadata: MessageMetadata | None = None
 
 
 class NewChatMessageRead(NewChatMessageBase, IDModel, TimestampModel):
     """Schema for reading a message."""
 
     thread_id: int
+    user: MessageUserInfo | None = None  # null for assistant/system messages
+    message_metadata: dict[str, Any] | None = None
+
     model_config = ConfigDict(from_attributes=True)
 
 

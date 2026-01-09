@@ -6,6 +6,7 @@ import { messageDocumentsMapAtom } from "@/atoms/chat/mentioned-documents.atom";
 import { UserMessageAttachments } from "@/components/assistant-ui/attachment";
 import { BranchPicker } from "@/components/assistant-ui/branch-picker";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const UserMessage: FC = () => {
 	const messageId = useAssistantState(({ message }) => message?.id);
@@ -20,6 +21,9 @@ export const UserMessage: FC = () => {
 			className="aui-user-message-root fade-in slide-in-from-bottom-1 mx-auto grid w-full max-w-(--thread-max-width) animate-in auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] content-start gap-y-2 px-2 py-3 duration-150 [&:where(>*)]:col-start-2"
 			data-role="user"
 		>
+			{/* User info column */}
+			<UserInfo />
+
 			<div className="aui-user-message-content-wrapper col-start-2 min-w-0">
 				{/* Display attachments and mentioned documents */}
 				{(hasAttachments || (mentionedDocs && mentionedDocs.length > 0)) && (
@@ -52,6 +56,47 @@ export const UserMessage: FC = () => {
 
 			<BranchPicker className="aui-user-branch-picker -mr-1 col-span-full col-start-1 row-start-3 justify-end" />
 		</MessagePrimitive.Root>
+	);
+};
+
+const UserInfo: FC = () => {
+	// Access metadata from the message (stored during persistence)
+	const messageData = useAssistantState(({ message }) => message?.metadata);
+
+	// Extract user info from metadata (if available)
+	const userInfo = messageData?.user as
+		| {
+				id: string;
+				email: string;
+				name?: string;
+				avatar_url?: string | null;
+		  }
+		| undefined;
+
+	if (!userInfo) {
+		return <div className="col-start-1 row-start-1" />; // Spacer
+	}
+
+	// Generate display name and avatar URL
+	const displayName = userInfo.name || userInfo.email.split("@")[0];
+	const avatarUrl =
+		userInfo.avatar_url ||
+		`https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random`;
+
+	return (
+		<div className="col-start-1 row-start-1 flex items-start justify-end pr-3 pt-0.5">
+			<div className="flex flex-col items-end gap-1">
+				<Avatar className="size-8">
+					<AvatarImage src={avatarUrl} alt={displayName} />
+					<AvatarFallback className="text-xs">
+						{displayName.charAt(0).toUpperCase()}
+					</AvatarFallback>
+				</Avatar>
+				<span className="text-xs text-muted-foreground truncate max-w-[60px]" title={displayName}>
+					{displayName}
+				</span>
+			</div>
+		</div>
 	);
 };
 

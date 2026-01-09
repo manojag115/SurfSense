@@ -18,12 +18,24 @@ export interface ThreadRecord {
 	updated_at: string;
 }
 
+export interface MessageUserInfo {
+	id: string;
+	email: string;
+	is_active: boolean;
+	is_superuser: boolean;
+	is_verified: boolean;
+	name?: string;
+	avatar_url?: string | null;
+}
+
 export interface MessageRecord {
 	id: number;
 	thread_id: number;
 	role: "user" | "assistant" | "system";
 	content: unknown;
 	created_at: string;
+	user?: MessageUserInfo | null;
+	message_metadata?: Record<string, unknown> | null;
 }
 
 export interface ThreadListResponse {

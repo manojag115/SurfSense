@@ -34,6 +34,7 @@ from app.db import (
     get_async_session,
 )
 from app.schemas.new_chat import (
+    MessageUserInfo,
     NewChatMessageAppend,
     NewChatMessageRead,
     NewChatRequest,
@@ -257,10 +258,10 @@ async def get_thread_messages(
     Requires CHATS_READ permission.
     """
     try:
-        # Get thread with messages
+        # Get thread with messages and user info
         result = await session.execute(
             select(NewChatThread)
-            .options(selectinload(NewChatThread.messages))
+            .options(selectinload(NewChatThread.messages).selectinload(NewChatMessage.user))
             .filter(NewChatThread.id == thread_id)
         )
         thread = result.scalars().first()
@@ -278,16 +279,41 @@ async def get_thread_messages(
         )
 
         # Return messages in the format expected by assistant-ui
-        messages = [
-            NewChatMessageRead(
-                id=msg.id,
-                thread_id=msg.thread_id,
-                role=msg.role,
-                content=msg.content,
-                created_at=msg.created_at,
+        messages = []
+        for msg in thread.messages:
+            # Eagerly extract all data while in session context
+            msg_id = msg.id
+            msg_thread_id = msg.thread_id
+            msg_role = msg.role
+            msg_content = msg.content
+            msg_created_at = msg.created_at
+            msg_updated_at = msg.updated_at
+            msg_user_id = msg.user_id
+            msg_metadata = msg.message_metadata
+            
+            # Manually construct user info to avoid lazy loading
+            user_info = None
+            if msg_user_id and msg.user:
+                user_info = MessageUserInfo(
+                    id=msg.user.id,
+                    email=msg.user.email,
+                    is_active=msg.user.is_active,
+                    is_superuser=msg.user.is_superuser,
+                    is_verified=msg.user.is_verified,
+                )
+
+            messages.append(
+                NewChatMessageRead(
+                    id=msg_id,
+                    thread_id=msg_thread_id,
+                    role=msg_role,
+                    content=msg_content,
+                    created_at=msg_created_at,
+                    updated_at=msg_updated_at,
+                    user=user_info,
+                    message_metadata=msg_metadata,
+                )
             )
-            for msg in thread.messages
-        ]
 
         return ThreadHistoryLoadResponse(messages=messages)
 
@@ -318,7 +344,7 @@ async def get_thread_full(
     try:
         result = await session.execute(
             select(NewChatThread)
-            .options(selectinload(NewChatThread.messages))
+            .options(selectinload(NewChatThread.messages).selectinload(NewChatMessage.user))
             .filter(NewChatThread.id == thread_id)
         )
         thread = result.scalars().first()
@@ -530,8 +556,32 @@ async def append_message(
             thread_id=thread_id,
             role=message_role,
             content=message.content,
+            user_id=user.id if message_role == NewChatMessageRole.USER else None,
         )
         session.add(db_message)
+        await session.flush()  # Flush to get the ID
+        await session.refresh(db_message, ["user"])  # Load user relationship
+
+        # Eagerly extract all data while in session context BEFORE commit
+        msg_id = db_message.id
+        msg_thread_id = db_message.thread_id
+        msg_role = db_message.role
+        msg_content = db_message.content
+        msg_created_at = db_message.created_at
+        msg_updated_at = db_message.updated_at
+        msg_user_id = db_message.user_id
+        msg_metadata = db_message.message_metadata
+        
+        # Extract user data while still in session
+        user_info = None
+        if msg_user_id and db_message.user:
+            user_info = MessageUserInfo(
+                id=db_message.user.id,
+                email=db_message.user.email,
+                is_active=db_message.user.is_active,
+                is_superuser=db_message.user.is_superuser,
+                is_verified=db_message.user.is_verified,
+            )
 
         # Update thread's updated_at timestamp
         thread.updated_at = datetime.now(UTC)
@@ -562,8 +612,18 @@ async def append_message(
                 )
 
         await session.commit()
-        await session.refresh(db_message)
-        return db_message
+
+        # Return manually constructed response
+        return NewChatMessageRead(
+            id=msg_id,
+            thread_id=msg_thread_id,
+            role=msg_role,
+            content=msg_content,
+            created_at=msg_created_at,
+            updated_at=msg_updated_at,
+            user=user_info,
+            message_metadata=msg_metadata,
+        )
 
     except HTTPException:
         raise
