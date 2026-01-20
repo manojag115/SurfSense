@@ -345,7 +345,7 @@ export default function LogsManagePage() {
 	const { mutateAsync: updateLogMutation } = useAtomValue(updateLogMutationAtom);
 	const { mutateAsync: createLogMutation } = useAtomValue(createLogMutationAtom);
 
-	const createLog = useCallback(
+	const _createLog = useCallback(
 		async (data: CreateLogRequest) => {
 			try {
 				await createLogMutation(data);
@@ -358,7 +358,7 @@ export default function LogsManagePage() {
 		[createLogMutation]
 	);
 
-	const updateLog = useCallback(
+	const _updateLog = useCallback(
 		async (logId: number, data: UpdateLogRequest) => {
 			try {
 				await updateLogMutation({ logId, data });

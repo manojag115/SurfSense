@@ -47,7 +47,7 @@ export const GithubConfig: FC<GithubConfigProps> = ({
 		setGithubPat(pat);
 		setRepoFullNames(repos);
 		setName(connector.name || "");
-	}, [connector.config, connector.name]);
+	}, [connector.config, connector.name, arrayToString, stringToArray]);
 
 	const handleGithubPatChange = (value: string) => {
 		setGithubPat(value);

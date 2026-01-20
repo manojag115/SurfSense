@@ -94,7 +94,6 @@ function getAspectRatioClass(ratio?: AspectRatio): string {
 			return "aspect-[9/16]";
 		case "21:9":
 			return "aspect-[21/9]";
-		case "auto":
 		default:
 			return "aspect-[2/1]";
 	}

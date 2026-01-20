@@ -1,6 +1,5 @@
 import { IconMessage, IconMicrophone, IconSearch, IconUsers } from "@tabler/icons-react";
 import Image from "next/image";
-import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 
 export function FeaturesBentoGrid() {

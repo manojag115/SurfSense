@@ -1,14 +1,13 @@
 "use client";
 
 import { makeAssistantToolUI } from "@assistant-ui/react";
-import { AlertCircleIcon, ExternalLinkIcon, LinkIcon } from "lucide-react";
+import { AlertCircleIcon, LinkIcon } from "lucide-react";
 import { z } from "zod";
 import {
 	MediaCard,
 	MediaCardErrorBoundary,
 	MediaCardLoading,
 	parseSerializableMediaCard,
-	type SerializableMediaCard,
 } from "@/components/tool-ui/media-card";
 
 // ============================================================================

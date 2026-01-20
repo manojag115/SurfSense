@@ -225,43 +225,39 @@ const Pin = ({ className }: { className?: string }) => {
 					}}
 					className="absolute top-1/2 left-1/2 mt-4 ml-[0.09375rem] -translate-x-1/2 -translate-y-1/2"
 				>
-					<>
-						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{
-								opacity: [0, 1, 0.5, 0],
-								scale: 1,
-							}}
-							transition={{ duration: 6, repeat: Infinity, delay: 0 }}
-							className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
-						></motion.div>
-						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{
-								opacity: [0, 1, 0.5, 0],
-								scale: 1,
-							}}
-							transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-							className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
-						></motion.div>
-						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{
-								opacity: [0, 1, 0.5, 0],
-								scale: 1,
-							}}
-							transition={{ duration: 6, repeat: Infinity, delay: 4 }}
-							className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
-						></motion.div>
-					</>
+					<motion.div
+						initial={{ opacity: 0, scale: 0 }}
+						animate={{
+							opacity: [0, 1, 0.5, 0],
+							scale: 1,
+						}}
+						transition={{ duration: 6, repeat: Infinity, delay: 0 }}
+						className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
+					></motion.div>
+					<motion.div
+						initial={{ opacity: 0, scale: 0 }}
+						animate={{
+							opacity: [0, 1, 0.5, 0],
+							scale: 1,
+						}}
+						transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+						className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
+					></motion.div>
+					<motion.div
+						initial={{ opacity: 0, scale: 0 }}
+						animate={{
+							opacity: [0, 1, 0.5, 0],
+							scale: 1,
+						}}
+						transition={{ duration: 6, repeat: Infinity, delay: 4 }}
+						className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-sky-500/[0.08] shadow-[0_8px_16px_rgb(0_0_0/0.4)] dark:bg-sky-500/[0.2]"
+					></motion.div>
 				</div>
 
-				<>
-					<motion.div className="absolute right-1/2 bottom-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-blue-500 blur-[2px]" />
-					<motion.div className="absolute right-1/2 bottom-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-blue-500" />
-					<motion.div className="absolute right-1/2 bottom-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-blue-600 blur-[3px]" />
-					<motion.div className="absolute right-1/2 bottom-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-blue-300" />
-				</>
+				<motion.div className="absolute right-1/2 bottom-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-blue-500 blur-[2px]" />
+				<motion.div className="absolute right-1/2 bottom-1/2 h-20 w-px translate-y-[14px] bg-gradient-to-b from-transparent to-blue-500" />
+				<motion.div className="absolute right-1/2 bottom-1/2 z-40 h-[4px] w-[4px] translate-x-[1.5px] translate-y-[14px] rounded-full bg-blue-600 blur-[3px]" />
+				<motion.div className="absolute right-1/2 bottom-1/2 z-40 h-[2px] w-[2px] translate-x-[0.5px] translate-y-[14px] rounded-full bg-blue-300" />
 			</div>
 		</motion.div>
 	);

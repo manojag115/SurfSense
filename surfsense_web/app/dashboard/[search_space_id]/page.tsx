@@ -11,5 +11,5 @@ export default function SearchSpaceDashboardPage() {
 		router.push(`/dashboard/${search_space_id}/new-chat`);
 	}, [router, search_space_id]);
 
-	return <></>;
+	return null;
 }

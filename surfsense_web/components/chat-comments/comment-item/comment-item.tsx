@@ -59,13 +59,11 @@ function formatTimestamp(dateString: string): string {
 		return `${dayName} at ${timeStr}`;
 	}
 
-	return (
-		date.toLocaleDateString("en-US", {
-			month: "short",
-			day: "numeric",
-			year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
-		}) + ` at ${timeStr}`
-	);
+	return `${date.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+		year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
+	})} at ${timeStr}`;
 }
 
 export function convertRenderedToDisplay(contentRendered: string): string {

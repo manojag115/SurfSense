@@ -92,7 +92,7 @@ export const AllConnectorsTab: FC<AllConnectorsTabProps> = ({
 							const accountCount = typeConnectors.length;
 
 							// Get the most recent last_indexed_at across all accounts
-							const mostRecentLastIndexed = typeConnectors.reduce<string | undefined>(
+							const _mostRecentLastIndexed = typeConnectors.reduce<string | undefined>(
 								(latest, c) => {
 									if (!c.last_indexed_at) return latest;
 									if (!latest) return c.last_indexed_at;

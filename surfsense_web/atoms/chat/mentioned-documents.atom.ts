@@ -1,7 +1,7 @@
 "use client";
 
 import { atom } from "jotai";
-import type { Document, SurfsenseDocsDocument } from "@/contracts/types/document.types";
+import type { Document } from "@/contracts/types/document.types";
 
 /**
  * Atom to store the IDs of documents mentioned in the current chat composer.

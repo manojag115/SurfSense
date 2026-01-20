@@ -89,7 +89,10 @@ export function useApiKey(): UseApiKeyReturn {
 			console.error("Failed to copy:", err);
 			toast.error("Failed to copy API key");
 		}
-	}, [apiKey]);
+	}, [
+		apiKey, // Fallback for non-secure contexts or browsers without clipboard API
+		fallbackCopyTextToClipboard,
+	]);
 
 	return {
 		apiKey,

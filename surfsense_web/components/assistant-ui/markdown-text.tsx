@@ -141,7 +141,7 @@ const useCopyToClipboard = ({ copiedDuration = 3000 }: { copiedDuration?: number
 function processChildrenWithCitations(children: ReactNode): ReactNode {
 	if (typeof children === "string") {
 		const parsed = parseTextWithCitations(children);
-		return parsed.length === 1 && typeof parsed[0] === "string" ? children : <>{parsed}</>;
+		return parsed.length === 1 && typeof parsed[0] === "string" ? children : parsed;
 	}
 
 	if (Array.isArray(children)) {

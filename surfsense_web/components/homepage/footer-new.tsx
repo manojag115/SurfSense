@@ -106,7 +106,7 @@ export function FooterNew() {
 						</p>
 						<ul className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4">
 							{pages.map((page, idx) => (
-								<li key={"pages" + idx} className="list-none">
+								<li key={`pages${idx}`} className="list-none">
 									<Link className="transition-colors hover:text-text-neutral-800 " href={page.href}>
 										{page.title}
 									</Link>
@@ -123,7 +123,7 @@ export function FooterNew() {
 							{socials.map((social, idx) => {
 								const Icon = social.icon;
 								return (
-									<li key={"social" + idx} className="list-none">
+									<li key={`social${idx}`} className="list-none">
 										<Link
 											className="transition-colors hover:text-text-neutral-800 flex items-center gap-2"
 											href={social.href}
@@ -145,7 +145,7 @@ export function FooterNew() {
 						</p>
 						<ul className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4">
 							{legals.map((legal, idx) => (
-								<li key={"legal" + idx} className="list-none">
+								<li key={`legal${idx}`} className="list-none">
 									<Link
 										className="transition-colors hover:text-text-neutral-800 "
 										href={legal.href}
@@ -162,7 +162,7 @@ export function FooterNew() {
 						</p>
 						<ul className="transition-colors hover:text-text-neutral-800 text-neutral-600 dark:text-neutral-300 list-none space-y-4">
 							{signups.map((auth, idx) => (
-								<li key={"auth" + idx} className="list-none">
+								<li key={`auth${idx}`} className="list-none">
 									<Link className="transition-colors hover:text-text-neutral-800 " href={auth.href}>
 										{auth.title}
 									</Link>

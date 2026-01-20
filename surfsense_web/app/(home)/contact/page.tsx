@@ -1,4 +1,3 @@
-import React from "react";
 import { ContactFormGridWithDetails } from "@/components/contact/contact-form";
 
 const page = () => {

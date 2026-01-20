@@ -40,7 +40,6 @@ const StatusIcon: FC<StatusIconProps> = ({ status, className, isStreaming = true
 			);
 		case "cancelled":
 			return <XCircle className={cn(baseClass, "text-destructive")} />;
-		case "pending":
 		default:
 			return <Circle className={cn(baseClass, "text-muted-foreground")} />;
 	}

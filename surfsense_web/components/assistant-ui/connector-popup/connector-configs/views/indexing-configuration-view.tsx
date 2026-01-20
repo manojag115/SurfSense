@@ -91,7 +91,9 @@ export const IndexingConfigurationView: FC<IndexingConfigurationViewProps> = ({
 		};
 	}, [checkScrollState]);
 
-	const authConnector = OAUTH_CONNECTORS.find((c) => c.connectorType === connector?.connector_type);
+	const _authConnector = OAUTH_CONNECTORS.find(
+		(c) => c.connectorType === connector?.connector_type
+	);
 
 	return (
 		<div className="flex-1 flex flex-col min-h-0 overflow-hidden">

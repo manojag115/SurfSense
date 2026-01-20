@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 import {
 	createNewLLMConfigMutationAtom,
 	deleteNewLLMConfigMutationAtom,
@@ -269,7 +268,7 @@ export function ModelConfigManager({ searchSpaceId }: ModelConfigManagerProps) {
 						<motion.div variants={container} initial="hidden" animate="show" className="grid gap-4">
 							<AnimatePresence mode="popLayout">
 								{configs?.map((config) => {
-									const providerInfo = getProviderInfo(config.provider);
+									const _providerInfo = getProviderInfo(config.provider);
 									return (
 										<motion.div
 											key={config.id}

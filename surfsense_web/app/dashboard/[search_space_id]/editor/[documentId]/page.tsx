@@ -78,7 +78,7 @@ function extractTitleFromBlockNote(blocknoteDocument: BlockNoteDocument): string
 export default function EditorPage() {
 	const params = useParams();
 	const router = useRouter();
-	const queryClient = useQueryClient();
+	const _queryClient = useQueryClient();
 	const documentId = params.documentId as string;
 	const searchSpaceId = Number(params.search_space_id);
 	const isNewNote = documentId === "new";

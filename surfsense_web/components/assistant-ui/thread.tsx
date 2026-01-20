@@ -563,7 +563,7 @@ const ThinkingStepsPart: FC = () => {
 	);
 };
 
-const AssistantMessageInner: FC = () => {
+const _AssistantMessageInner: FC = () => {
 	return (
 		<>
 			{/* Render thinking steps from message content - this ensures proper scroll tracking */}

@@ -7,8 +7,6 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +37,7 @@ export function Pricing({
 	const isDesktop = useMediaQuery("(min-width: 768px)");
 	const switchRef = useRef<HTMLButtonElement>(null);
 
-	const handleToggle = (checked: boolean) => {
+	const _handleToggle = (checked: boolean) => {
 		setIsMonthly(!checked);
 		if (checked && switchRef.current) {
 			const rect = switchRef.current.getBoundingClientRect();
@@ -155,7 +153,7 @@ export function Pricing({
 							<p className="text-base font-semibold text-muted-foreground">{plan.name}</p>
 							<div className="mt-6 flex items-center justify-center gap-x-2">
 								<span className="text-5xl font-bold tracking-tight text-foreground">
-									{isNaN(Number(plan.price)) ? (
+									{Number.isNaN(Number(plan.price)) ? (
 										<span>{isMonthly ? plan.price : plan.yearlyPrice}</span>
 									) : (
 										<NumberFlow
@@ -183,7 +181,11 @@ export function Pricing({
 							</div>
 
 							<p className="text-xs leading-5 text-muted-foreground">
-								{isNaN(Number(plan.price)) ? "" : isMonthly ? "billed monthly" : "billed annually"}
+								{Number.isNaN(Number(plan.price))
+									? ""
+									: isMonthly
+										? "billed monthly"
+										: "billed annually"}
 							</p>
 
 							<ul className="mt-5 gap-2 flex flex-col">

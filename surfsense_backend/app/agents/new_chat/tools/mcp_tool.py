@@ -160,7 +160,7 @@ async def _create_mcp_tool_from_definition_http(
         logger.info(f"MCP HTTP tool '{tool_name}' called with params: {kwargs}")
 
         try:
-            async with streamablehttp_client(url, headers=headers) as (read, write, _):
+            async with streamablehttp_client(url, headers=headers) as (read, write, _):  # noqa: SIM117
                 async with ClientSession(read, write) as session:
                     await session.initialize()
                     
@@ -301,7 +301,7 @@ async def _load_http_mcp_tools(
 
     # Connect and discover tools via HTTP
     try:
-        async with streamablehttp_client(url, headers=headers) as (read, write, _):
+        async with streamablehttp_client(url, headers=headers) as (read, write, _):  # noqa: SIM117
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 

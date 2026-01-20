@@ -270,7 +270,8 @@ async def test_mcp_http_connection(
         logger.info("Testing HTTP MCP connection to: %s (transport: %s)", url, transport)
         
         # Use streamable HTTP client for all HTTP-based transports
-        async with streamablehttp_client(url, headers=headers or {}) as (read, write, _):
+        # Note: Cannot combine these context managers because ClientSession needs the streams
+        async with streamablehttp_client(url, headers=headers or {}) as (read, write, _):  # noqa: SIM117
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 

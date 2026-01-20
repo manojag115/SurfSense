@@ -6,7 +6,6 @@ import {
 	AlertCircle,
 	ArrowRight,
 	CheckCircle2,
-	Clock,
 	Loader2,
 	LogIn,
 	Shield,
@@ -18,7 +17,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { acceptInviteMutationAtom } from "@/atoms/invites/invites-mutation.atoms";
 import { Button } from "@/components/ui/button";
@@ -141,7 +140,11 @@ export default function InviteAcceptPage() {
 				handleAccept();
 			}
 		}
-	}, [isLoggedIn, inviteCode]);
+	}, [
+		isLoggedIn,
+		inviteCode, // Auto-accept the invite after redirect
+		handleAccept,
+	]);
 
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-background via-background to-primary/5">

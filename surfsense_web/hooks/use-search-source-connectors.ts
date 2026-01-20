@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { authenticatedFetch, getBearerToken, handleUnauthorized } from "@/lib/auth-utils";
+import { authenticatedFetch } from "@/lib/auth-utils";
 
 export interface SearchSourceConnector {
 	id: number;
@@ -100,7 +100,11 @@ export const useSearchSourceConnectors = (lazy: boolean = false, searchSpaceId?:
 				setIsLoading(false);
 			}
 		},
-		[isLoaded, lazy]
+		[
+			isLoaded,
+			lazy, // Update connector source items when connectors change
+			updateConnectorSourceItems,
+		]
 	);
 
 	useEffect(() => {

@@ -278,6 +278,7 @@ export const useConnectorDialog = () => {
 		indexingConfig,
 		connectingConnectorType,
 		viewingAccountsType,
+		viewingMCPList,
 	]);
 
 	// Detect OAuth success / Failure and transition to config view
@@ -1351,7 +1352,7 @@ export const useConnectorDialog = () => {
 				setIsDisconnecting(false);
 			}
 		},
-		[editingConnector, searchSpaceId, deleteConnector, router]
+		[editingConnector, searchSpaceId, deleteConnector, router, cameFromMCPList]
 	);
 
 	// Handle quick index (index without date picker, uses backend defaults)

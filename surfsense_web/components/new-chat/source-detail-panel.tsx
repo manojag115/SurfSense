@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import {
 	BookOpen,
 	ChevronDown,
-	ChevronUp,
 	ExternalLink,
 	FileText,
 	Hash,
@@ -128,7 +127,7 @@ export function SourceDetailPanel({
 	const [summaryOpen, setSummaryOpen] = useState(false);
 	const [activeChunkIndex, setActiveChunkIndex] = useState<number | null>(null);
 	const [mounted, setMounted] = useState(false);
-	const [hasScrolledToCited, setHasScrolledToCited] = useState(false);
+	const [_hasScrolledToCited, setHasScrolledToCited] = useState(false);
 	const shouldReduceMotion = useReducedMotion();
 
 	useEffect(() => {

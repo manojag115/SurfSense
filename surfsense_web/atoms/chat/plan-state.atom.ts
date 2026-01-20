@@ -134,7 +134,7 @@ export const getPlanStateAtom = atom((get) => {
 /**
  * Helper atom to clear all plan states (useful when starting a new chat)
  */
-export const clearPlanStatesAtom = atom(null, (get, set) => {
+export const clearPlanStatesAtom = atom(null, (_get, set) => {
 	clearPlanOwnerRegistry();
 	set(planStatesAtom, new Map());
 });

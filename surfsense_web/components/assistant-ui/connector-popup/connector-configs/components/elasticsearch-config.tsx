@@ -192,9 +192,9 @@ export const ElasticsearchConfig: FC<ElasticsearchConfigProps> = ({
 
 	const handleMaxDocumentsChange = (value: string) => {
 		setMaxDocuments(value);
-		if (value && value.trim()) {
+		if (value?.trim()) {
 			const num = parseInt(value, 10);
-			if (!isNaN(num) && num > 0) {
+			if (!Number.isNaN(num) && num > 0) {
 				updateConfig({ ELASTICSEARCH_MAX_DOCUMENTS: num });
 			}
 		} else {

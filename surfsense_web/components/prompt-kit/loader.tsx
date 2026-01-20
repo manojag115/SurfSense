@@ -59,7 +59,6 @@ export function TextShimmerLoader({
  */
 export function Loader({ variant = "text-shimmer", size = "md", text, className }: LoaderProps) {
 	switch (variant) {
-		case "text-shimmer":
 		default:
 			return <TextShimmerLoader text={text} size={size} className={className} />;
 	}

@@ -4,18 +4,16 @@ import { CheckCircle2, ChevronDown, ChevronUp, Server, XCircle } from "lucide-re
 import { type FC, useRef, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { EnumConnectorName } from "@/contracts/enums/connector";
-import type { MCPToolDefinition } from "@/contracts/types/mcp.types";
-import type { ConnectFormProps } from "..";
 import {
 	extractServerName,
+	type MCPConnectionTestResult,
 	parseMCPConfig,
 	testMCPConnection,
-	type MCPConnectionTestResult,
 } from "../../utils/mcp-config-validator";
+import type { ConnectFormProps } from "..";
 
 export const MCPConnectForm: FC<ConnectFormProps> = ({ onSubmit, isSubmitting }) => {
 	const isSubmittingRef = useRef(false);
@@ -46,7 +44,7 @@ export const MCPConnectForm: FC<ConnectFormProps> = ({ onSubmit, isSubmitting })
 			name: "My Remote MCP Server",
 			url: "https://your-mcp-server.com/mcp",
 			headers: {
-				"API_KEY": "your_api_key_here",
+				API_KEY: "your_api_key_here",
 			},
 			transport: "streamable-http",
 		},
@@ -184,7 +182,8 @@ export const MCPConnectForm: FC<ConnectFormProps> = ({ onSubmit, isSubmitting })
 						/>
 						{jsonError && <p className="text-xs text-red-500">JSON Error: {jsonError}</p>}
 						<p className="text-[10px] sm:text-xs text-muted-foreground">
-							<strong>Local (stdio):</strong> command, args, env, transport: "stdio"<br />
+							<strong>Local (stdio):</strong> command, args, env, transport: "stdio"
+							<br />
 							<strong>Remote (HTTP):</strong> url, headers, transport: "streamable-http"
 						</p>
 					</div>

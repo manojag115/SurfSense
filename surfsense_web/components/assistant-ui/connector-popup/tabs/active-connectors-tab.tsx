@@ -3,15 +3,11 @@
 import { ArrowRight, Cable, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
-import { useState } from "react";
 import { getDocumentTypeLabel } from "@/app/dashboard/[search_space_id]/documents/(manage)/components/DocumentTypeIcon";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { TabsContent } from "@/components/ui/tabs";
 import { getConnectorIcon } from "@/contracts/enums/connectorIcons";
 import type { SearchSourceConnector } from "@/contracts/types/connector.types";
-import type { LogActiveTask, LogSummary } from "@/contracts/types/log.types";
-import { connectorsApiService } from "@/lib/apis/connectors-api.service";
 import { cn } from "@/lib/utils";
 import { OAUTH_CONNECTORS } from "../constants/connector-constants";
 import { getDocumentCountForConnector } from "../utils/connector-document-mapping";
@@ -32,7 +28,7 @@ interface ActiveConnectorsTabProps {
 /**
  * Check if a connector type is indexable
  */
-function isIndexableConnector(connectorType: string): boolean {
+function _isIndexableConnector(connectorType: string): boolean {
 	const nonIndexableTypes = ["MCP_CONNECTOR"];
 	return !nonIndexableTypes.includes(connectorType);
 }

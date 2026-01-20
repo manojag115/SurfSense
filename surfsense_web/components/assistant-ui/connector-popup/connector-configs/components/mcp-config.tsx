@@ -10,12 +10,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { EnumConnectorName } from "@/contracts/enums/connector";
 import type { MCPServerConfig } from "@/contracts/types/mcp.types";
-import type { ConnectorConfigProps } from "../index";
 import {
+	type MCPConnectionTestResult,
 	parseMCPConfig,
 	testMCPConnection,
-	type MCPConnectionTestResult,
 } from "../../utils/mcp-config-validator";
+import type { ConnectorConfigProps } from "../index";
 
 interface MCPConfigProps extends ConnectorConfigProps {
 	onNameChange?: (name: string) => void;
@@ -47,10 +47,10 @@ export const MCPConfig: FC<MCPConfigProps> = ({ connector, onConfigChange, onNam
 		const serverConfig = connector.config?.server_config as MCPServerConfig | undefined;
 		if (serverConfig) {
 			const transport = serverConfig.transport || "stdio";
-			
+
 			// Build config object based on transport type
 			let configObj: Record<string, unknown>;
-			
+
 			if (transport === "streamable-http" || transport === "http" || transport === "sse") {
 				// HTTP transport - use url and headers
 				configObj = {
@@ -67,7 +67,7 @@ export const MCPConfig: FC<MCPConfigProps> = ({ connector, onConfigChange, onNam
 					transport: transport,
 				};
 			}
-			
+
 			setConfigJson(JSON.stringify(configObj, null, 2));
 		}
 	}, [isValidConnector, connector.name, connector.config?.server_config]);
@@ -178,7 +178,8 @@ export const MCPConfig: FC<MCPConfigProps> = ({ connector, onConfigChange, onNam
 						/>
 						{jsonError && <p className="text-xs text-red-500">JSON Error: {jsonError}</p>}
 						<p className="text-[10px] sm:text-xs text-muted-foreground">
-							<strong>Local (stdio):</strong> command, args, env, transport: "stdio"<br />
+							<strong>Local (stdio):</strong> command, args, env, transport: "stdio"
+							<br />
 							<strong>Remote (HTTP):</strong> url, headers, transport: "streamable-http"
 						</p>
 					</div>

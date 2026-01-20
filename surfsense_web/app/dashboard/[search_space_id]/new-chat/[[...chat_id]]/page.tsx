@@ -251,7 +251,7 @@ export default function NewChatPage() {
 	const setMentionedDocumentIds = useSetAtom(mentionedDocumentIdsAtom);
 	const setMentionedDocuments = useSetAtom(mentionedDocumentsAtom);
 	const setMessageDocumentsMap = useSetAtom(messageDocumentsMapAtom);
-	const hydratePlanState = useSetAtom(hydratePlanStateAtom);
+	const _hydratePlanState = useSetAtom(hydratePlanStateAtom);
 	const setCurrentThreadState = useSetAtom(currentThreadAtom);
 
 	// Get current user for author info in shared chats
@@ -354,13 +354,7 @@ export default function NewChatPage() {
 		} finally {
 			setIsInitializing(false);
 		}
-	}, [
-		urlChatId,
-		setMessageDocumentsMap,
-		setMentionedDocumentIds,
-		setMentionedDocuments,
-		hydratePlanState,
-	]);
+	}, [urlChatId, setMessageDocumentsMap, setMentionedDocumentIds, setMentionedDocuments]);
 
 	// Initialize on mount
 	useEffect(() => {

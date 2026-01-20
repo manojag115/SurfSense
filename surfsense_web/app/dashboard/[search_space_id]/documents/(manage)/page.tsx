@@ -131,7 +131,7 @@ export default function DocumentsTable() {
 	});
 
 	// Transform SurfSense docs to match the Document type
-	const surfsenseDocsAsDocuments: Document[] = useMemo(() => {
+	const _surfsenseDocsAsDocuments: Document[] = useMemo(() => {
 		if (!surfsenseDocsResponse?.items) return [];
 		return surfsenseDocsResponse.items.map((doc) => ({
 			id: doc.id,
@@ -145,7 +145,7 @@ export default function DocumentsTable() {
 	}, [surfsenseDocsResponse]);
 
 	// Merge type counts with SURFSENSE_DOCS count
-	const typeCounts = useMemo(() => {
+	const _typeCounts = useMemo(() => {
 		const counts = { ...(rawTypeCounts || {}) };
 		if (surfsenseDocsResponse?.total) {
 			counts.SURFSENSE_DOCS = surfsenseDocsResponse.total;

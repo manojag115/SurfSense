@@ -325,7 +325,7 @@ export function ModelConfigSidebar({
 												disabled={isSubmitting}
 											>
 												{isSubmitting ? (
-													<>Loading...</>
+													"Loading..."
 												) : (
 													<>
 														<ChevronRight className="size-4" />

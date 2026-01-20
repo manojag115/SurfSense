@@ -44,7 +44,7 @@ function findMentionTrigger(
 		return { isActive: false, query: "", startIndex: 0 };
 	}
 
-	const fullMatch = mentionMatch[0];
+	const _fullMatch = mentionMatch[0];
 	const query = mentionMatch[1];
 	const atIndex = cursorPos - query.length - 1;
 

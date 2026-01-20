@@ -45,7 +45,7 @@ export function ChatShareButton({ thread, onVisibilityChange, className }: ChatS
 	const [isUpdating, setIsUpdating] = useState(false);
 
 	const currentVisibility = thread?.visibility ?? "PRIVATE";
-	const isOwnThread = thread?.created_by_id !== null; // If we have the thread, we can modify it
+	const _isOwnThread = thread?.created_by_id !== null; // If we have the thread, we can modify it
 
 	const handleVisibilityChange = useCallback(
 		async (newVisibility: ChatVisibility) => {

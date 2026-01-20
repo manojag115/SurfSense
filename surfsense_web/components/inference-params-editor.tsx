@@ -36,7 +36,7 @@ export default function InferenceParamsEditor({ params, setParams }: InferencePa
 
 		if (
 			(selectedKey === "temperature" || selectedKey === "top_p") &&
-			(isNaN(numericValue) || numericValue < 0 || numericValue > 1)
+			(Number.isNaN(numericValue) || numericValue < 0 || numericValue > 1)
 		) {
 			alert("Value must be a number between 0 and 1");
 			return;
@@ -52,7 +52,7 @@ export default function InferenceParamsEditor({ params, setParams }: InferencePa
 
 		setParams({
 			...params,
-			[selectedKey]: isNaN(numericValue) ? value : numericValue,
+			[selectedKey]: Number.isNaN(numericValue) ? value : numericValue,
 		});
 
 		setSelectedKey("");

@@ -82,10 +82,10 @@ export const WriteTodosToolUI = makeAssistantToolUI<WriteTodosData, WriteTodosDa
 		// SYNCHRONOUS ownership check
 		const isOwner = useMemo(() => {
 			return registerPlanOwner(planTitle, toolCallId);
-		}, [planTitle, toolCallId]);
+		}, [toolCallId]);
 
 		// Get canonical title
-		const canonicalTitle = useMemo(() => getCanonicalPlanTitle(planTitle), [planTitle]);
+		const canonicalTitle = useMemo(() => getCanonicalPlanTitle(planTitle), []);
 
 		// Register/update the plan state
 		useEffect(() => {

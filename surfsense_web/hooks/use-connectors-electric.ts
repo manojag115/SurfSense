@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
-import { useElectricClient } from "@/lib/electric/context";
-import type { SyncHandle } from "@/lib/electric/client";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { SearchSourceConnector } from "@/contracts/types/connector.types";
+import type { SyncHandle } from "@/lib/electric/client";
+import { useElectricClient } from "@/lib/electric/context";
 
 /**
  * Hook for managing connectors with Electric SQL real-time sync
@@ -188,7 +188,7 @@ export function useConnectorsElectric(searchSpaceId: number | string | null) {
 				liveQueryRef.current = null;
 			}
 		};
-	}, [searchSpaceId, electricClient]);
+	}, [searchSpaceId, electricClient, transformConnector]);
 
 	// Manual refresh function (optional, for fallback)
 	const refreshConnectors = useCallback(async () => {
@@ -202,7 +202,7 @@ export function useConnectorsElectric(searchSpaceId: number | string | null) {
 		} catch (err) {
 			console.error("[useConnectorsElectric] Failed to refresh:", err);
 		}
-	}, [electricClient, searchSpaceId]);
+	}, [electricClient, searchSpaceId, transformConnector]);
 
 	return { connectors, loading, error, refreshConnectors };
 }

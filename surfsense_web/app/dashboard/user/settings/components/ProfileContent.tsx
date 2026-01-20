@@ -21,7 +21,7 @@ function AvatarDisplay({ url, fallback }: { url?: string; fallback: string }) {
 
 	useEffect(() => {
 		setHasError(false);
-	}, [url]);
+	}, []);
 
 	if (url && !hasError) {
 		return (
